@@ -16,7 +16,11 @@ void setup() {
   Serial.println("Soft AP ready.");
   Serial.println(WiFi.softAPIP());
 
-  server.on("/on", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/", [](AsyncWebServerRequest * request) {
+    request->send(200, "text/plain", "Commands: on, off, ins, start, stop, reset");
+  });
+
+  server.on("/on", [](AsyncWebServerRequest * request) {
     if (request->hasParam("pitch") && request->hasParam("velocity"))
     {
       midi_note_on(
@@ -29,7 +33,7 @@ void setup() {
     }
   });
 
-  server.on("/off", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/off", [](AsyncWebServerRequest * request) {
     if (request->hasParam("pitch") && request->hasParam("velocity"))
     {
       midi_note_off(
@@ -42,7 +46,7 @@ void setup() {
     }
   });
 
-  server.on("/ins", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/ins", [](AsyncWebServerRequest * request) {
     if (request->hasParam("patch")) {
       // I do not clamp zero, maybe I will regret it.
       midi_patch_change(
@@ -54,23 +58,19 @@ void setup() {
     }
   });
 
-  server.on("/start", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/start", [](AsyncWebServerRequest * request) {
     midi_start();
     request->send(200, "text/plain", "ACK");
   });
 
-  server.on("/stop", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/stop", [](AsyncWebServerRequest * request) {
     midi_stop();
     request->send(200, "text/plain", "ACK");
   });
 
-  server.on("/reset", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/reset", [](AsyncWebServerRequest * request) {
     midi_reset();
     request->send(200, "text/plain", "ACK");
-  });
-
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
-    request->send(200, "text/plain", "Commands: on, off, ins");
   });
 
   server.begin();
