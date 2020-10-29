@@ -1,6 +1,6 @@
 # MIDI-Toy
 Hello. This repository contains a little toy.
-If you have heard of Pixelflut, well, it is very similar, except we don't use a screen, we use a MIDI synthesizer.
+If you have heard of [Pixelflut](https://github.com/defnull/pixelflut), well, it is very similar, except we don't use a screen, we use a MIDI synthesizer.
 
 ## HTTP API commands
 
