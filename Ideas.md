@@ -5,9 +5,9 @@
 **HTTP MIDI radio**
 It will be cool to have an Internet radio station for MIDI, controllable by its users.
 
-**Vintage MIDI interfaces**
+**Vintage MIDI interfaces** (ones compatible with General MIDI)
 There are [many](https://www.youtube.com/watch?v=eiMP-PlL6VM) MIDI compatible synthesizers and having several might be quite nice,
-actually.
+actually: `Roland SC-55 mk II`, `Yamaha MU80`, `Korg NS5R`.
 
 ## Ready
 
