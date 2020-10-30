@@ -6,6 +6,16 @@ If you have heard of [Pixelflut](https://github.com/defnull/pixelflut), well, it
 except we don't use a screen, we have a MIDI synthesizer instead!
 
 I am currently doing the records on [Casio Privia PX-350M](https://www.casio-intl.com/mea/en/emi/products/px350m/) and **E-Mu 0404 USB**.
+The hardware is simple: small batch fixture for ESP32 from AliExpress and my own [`MIDI I/O board`](https://github.com/6r1d/enhancing_boards/tree/master/MIDI_IO):
+
+![MIDI I/O board, ESP32 small batch fixture](https://i.imgur.com/XiR4Ycv.jpg)
+
+## Why?
+
+* It is fun
+* The process gives me some insight on how synthesizers interpret MIDI messages (undocomented behavior)
+* It helps me to test the MIDI I/O module a bit more
+* If somebody sends me code, it allows me to know more about other languages
 
 ## HTTP API commands
 
