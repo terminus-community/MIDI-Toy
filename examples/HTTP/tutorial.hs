@@ -1,20 +1,30 @@
-import Text.Printf
-import Control.Concurrent
-import Control.Concurrent.Async
-import Network.HTTP
+import Control.Concurrent (threadDelay)
+import Data.Traversable (for)
+import Network.HTTP (simpleHTTP, getRequest)
+import Text.Printf (printf)
 
-format_req :: String -> Integer -> Integer -> String
-format_req mode note velocity = printf "http://192.168.4.1/%s?pitch=%d&velocity=%d" mode note velocity
+data Mode = On | Off
 
-note_req :: Integer -> IO ()
-note_req midi_note = do
+instance Show Mode where
+	show On = "on"
+	show Off = "off"
+
+data Note = Note Integer
+	deriving Show
+
+data Velocity = Velocity Integer
+
+endpoint :: Mode -> Note -> Velocity -> String
+endpoint mode (Note note) (Velocity velocity) =
+	printf "http://192.168.4.1/%s?pitch=%d&velocity=%d" (show mode) note velocity
+
+play :: Note -> IO ()
+play note = do
     threadDelay 100000
-    print(midi_note)
-    simpleHTTP (getRequest (format_req "on" midi_note 60))
+    print $ "Current: " <> show note
+    simpleHTTP . getRequest . endpoint On note $ Velocity 60
     threadDelay 100000
-    simpleHTTP (getRequest (format_req "off" midi_note 60))
+    simpleHTTP . getRequest . endpoint Off note $ Velocity 60
     putStrLn ""
 
-main = do
-   let note_list = [22 .. 106]
-   traverse note_req note_list
+main = for [22 .. 106] $ play . Note
